@@ -34,6 +34,8 @@ getters =
 
   activeLocation: (state) -> return state.location
 
+  unitSystem: (state) -> return state.units
+
 ###
 Public methods that may attempt to change the app state
 ###
@@ -42,7 +44,11 @@ actions =
   getWeatherForLocation: (location) ->
     console.log 'getting weather for location'
 
-  toggleUnits: ({ commit }) -> commit types.TOGGLE_UNITS
+  toggleUnits: ({ commit, state, dispatch }) ->
+    commit types.TOGGLE_UNITS
+
+    # If there's a current location, update the data for the new units
+    dispatch 'setActiveLocation', state.location.slug if state.location
 
   removeLocation: ({ commit }, slug) ->
     commit types.REMOVE_LOCATION, slug if cache.locationExists slug
@@ -58,6 +64,8 @@ actions =
       EventBus.$emit 'location-created'
       return dispatch 'setActiveLocation', location.slug
 
+    commit types.SET_LOADING, true
+
     # Check if the OpenWeather API can find this location
     api.getWeather location.slug, state.units,
       (response) =>
@@ -68,10 +76,12 @@ actions =
         location.userDefined = true
         commit types.SET_ACTIVE_LOCATION, location
         EventBus.$emit 'location-created'
-        
+        commit types.SET_LOADING, false
+
     , (error) =>
       console.log error
       console.log utils.parseErrorResponse error
+      commit types.SET_LOADING, false
 
   setActiveLocation: ({ commit, state }, slug, callback) ->
     # Read location from cache or build a starter object for a new location
@@ -79,15 +89,18 @@ actions =
 
     # Request new data if the location cache is empty/outdated
     if cache.locationNeedsUpdate location.slug, state.units
+      commit types.SET_LOADING, true
       api.getWeather location.slug, state.units,
         (response) =>
           location = cache.timestampData location, response.data, state.units
 
           # Set current location
           commit types.SET_ACTIVE_LOCATION, location
+          commit types.SET_LOADING, false
       , (error) =>
         console.log error
         console.log utils.parseErrorResponse error
+        commit types.SET_LOADING, false
     else
       # If the cache is up-to-date, use that data
       commit types.SET_ACTIVE_LOCATION, location
@@ -114,6 +127,9 @@ mutations =
     if state.units == 'metric'
       state.units = 'imperial'
     else state.units = 'metric'
+
+  "#{types.SET_LOADING}": (state, isLoading) ->
+    state.loading = isLoading
 
 export default new Vuex.Store
   state:      state
