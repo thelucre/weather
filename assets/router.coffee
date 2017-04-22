@@ -16,7 +16,7 @@ routes = [
     children: [
       {
         name: 'location'
-        path: ':location'
+        path: ':slug'
         component: require './components/weather-detail'
         props: true
       }

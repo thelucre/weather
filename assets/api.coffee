@@ -2,7 +2,10 @@ axios = require 'axios'
 config = require './config'
 
 module.exports =
-  getWeather: (city, units, callback, error)->
+  ###
+  Get Weather data for a single city
+  ###
+  getWeather: (city, units = 'imperial', callback, error) ->
     axios.get('/weather', {
       params:
         q: city

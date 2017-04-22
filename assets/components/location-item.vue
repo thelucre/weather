@@ -10,7 +10,7 @@ load cached weather data
 
 .component--location-item
 	router-link(
-		:to="{ name: 'location', params: { location: location.slug }}")
+		:to="{ name: 'location', params: { slug: location.slug }}")
 		{{ location.label }}
 
 	button(v-if='location.userDefined' @click='remove') Remove
@@ -19,7 +19,9 @@ load cached weather data
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-module.exports =
+import EventBus from '../events'
+
+export default {
 	props:
 		# Location object with values:
 		# `slug`  - kebab case url slug
@@ -29,8 +31,8 @@ module.exports =
 			required: true
 
 	methods:
-		remove: -> @$store.dispatch 'removeLocation', @location.slug
-
+		remove: -> EventBus.$emit 'remove-location', @location.slug
+}
 </script>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->

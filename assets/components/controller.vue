@@ -22,14 +22,38 @@ Test Vue Component
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-module.exports =
+import EventBus from '../events'
 
+export default {
 	components:
 		locationItem: require './location-item'
 		addLocation: require './add-location'
 
 	computed:
-		locations: -> @$store.getters.allLocations
+		locations: -> return @$store.getters.allLocations
+		slug: -> return @$route.params.slug
+
+	watch:
+		# Watch the route path to check for a weather data update
+		'$route.params.slug': (nv, ov) -> @fetch() unless ov == nv
+
+	beforeMount: ->
+		@fetch() if @slug
+
+		# This controller will be decoupled from the components
+		# Using a global even bus we can catch relevant events and
+		# Not require specific components to fire them
+		EventBus.$on 'add-location', @tryToAddLocation
+		EventBus.$on 'remove-location', @removeLocation
+
+	methods:
+		# Get weather data for the current location
+		fetch: -> @$store.dispatch 'setActiveLocation', @slug
+
+		tryToAddLocation: (location) -> @$store.dispatch 'addLocation', location
+
+		removeLocation: (slug) -> @$store.dispatch 'removeLocation', slug
+}
 </script>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->

@@ -6,18 +6,25 @@ Add Location Component
 
 .component--add-location
 	input(v-model='location')
-	button(@click='tryToAddLocation')
+	button(@click='addLocation')
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-module.exports =
+import EventBus from '../events'
+
+export default {
 	data: -> location: ''
 
+	beforeMount: ->
+		EventBus.$on 'location-created', @clearInputs
+
 	methods:
-		tryToAddLocation: ->
-			@$store.dispatch 'addLocation', @location
+		addLocation: -> EventBus.$emit 'add-location', @location
+
+		clearInputs: -> @location = ''
+}
 </script>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->

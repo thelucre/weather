@@ -7,8 +7,9 @@ Shows the weather information for a given location
 <template lang='jade'>
 
 .component--weather-detail
-	p {{ location.name }}
-	pre(v-if='weather') {{ weather }}
+	template(v-if='location')
+		p {{ location.label }}
+		pre {{ location }}
 
 </template>
 
@@ -20,30 +21,14 @@ module.exports =
 
 	props:
 		# City name
-		location:
+		slug:
 			type: String
 			required: true
 			default: null
 
-	data: ->
-		# Weather data from OpenWeather API
-		weather: null
+	computed:
+		location: -> return @$store.getters.activeLocation
 
-	watch:
-		# Watch the route path to check for a weather data update
-		'$route.params.location': (nv, ov) -> @fetch() unless ov == nv
-
-	beforeMount: -> @fetch()
-
-	methods:
-		# Get weather data for the current location
-		fetch: ->
-			this.axios.get('/weather', {
-				params:
-					q: @location
-					units: 'imperial'
-					appid: config.api.key
-			}).then (res) => @weather = res.data
 </script>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->

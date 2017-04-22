@@ -2,9 +2,10 @@
 Global App Config
 ###
 module.exports =
+  
   # Key for reading/writing to local storage
   cacheKey: 'weather-locations'
-  
+
   # OpenWeather API settings
   api:
     root: 'http://api.openweathermap.org/data/2.5/'
