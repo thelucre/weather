@@ -1,0 +1,17 @@
+# System
+.DS_Store
+
+# Dev and Frontend Dependencies
+node_modules
+/js/node_modules
+npm-debug.log
+.sass-cache
+
+# Work files
+_docs
+
+# Builds ignored in master branch
+dist/*
+
+# Don't commit sensitive info
+.env
