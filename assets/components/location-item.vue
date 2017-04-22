@@ -10,8 +10,8 @@ load cached weather data
 
 .component--location-item
 	router-link(
-		:to="{ name: 'location', params: { slug: location.slug }}")
-		{{ location.label }}
+		:to="{ name: 'location', params: { slug: location.slug }}"
+	) {{ location.label }}
 
 	button(v-if='location.userDefined' @click='remove') Remove
 </template>
@@ -39,5 +39,5 @@ export default {
 
 <style lang='stylus'>
 .component--location-item
-	//
+	font-weight text-light
 </style>

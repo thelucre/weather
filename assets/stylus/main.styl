@@ -1,18 +1,19 @@
 // Load npm packages
 @import '~normalize-styl'
 
-body {
+// Set font-sizes so rem values for responsive effects.  Combined with the
+// font() call on `body`, this scales from 20px down to 14px
+:root
+	mq-values(font-size, 100%, 70%, max-w)
+
+body
 	font-family 'Roboto', 'Helvetica', 'Arial', sans-serif
-	font-weight 200
 	background #222
 	color #fafafa
-	// transform skew(2deg)
-}
 
-p {
+p
 	margin 0
-}
 
-a {
+a
 	color #fafafa
-}
+	text-decoration none

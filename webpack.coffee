@@ -58,8 +58,8 @@ config =
   output:
     path:          "#{process.cwd()}/dist"
     publicPath:    if hmr then 'http://localhost:'+port+'/dist/' else '/dist/'
-    filename:      if minify then '[name].[hash:8].js' else '[name].js'
-    chunkFilename: if minify then '[id].[hash:8].js' else '[id].js'
+    filename:      '[name].js'
+    chunkFilename: '[id].js'
 
   # Setup properties that are set later (With less indentation)
   module: {}
@@ -74,19 +74,6 @@ config =
     timings:      true
     chunks:       false
     chunkModules: false
-
-# # Modules that shouldn't get parsed for dependencies.	These will probably be
-# # used in tandem with using aliases to point at built versions of the modules.
-# config.module.noParse = [
-#
-# 	# Using a built version of pixijs for Decoy to fix issues where it errors on
-# 	# trying to use node's `fs`.  Another solution could have been to set
-# 	# node: { fs: 'empty' }
-# 	# https://github.com/pixijs/pixi.js/issues/1854#issuecomment-156074530
-# 	# https://github.com/pixijs/pixi.js/issues/2078#issuecomment-137297392
-# 	/bin\/pixi\.js$/
-#
-# ]
 
 # ##############################################################################
 # Resolve - Where to find files
@@ -171,14 +158,14 @@ config.module.loaders = [
         'css-loader?sourceMap&-autoprefixer'
         'postcss-loader'
         'stylus-loader?sourceMap'
-        # 'prepend-string-loader?string[]=@require "~definitions.styl";'
+        'prepend-string-loader?string[]=@require "~definitions.styl";'
         ].join('!')
-      else ExtractText.extract [
+      else ExtractText.extract use: [
         'css-loader?sourceMap'
         'postcss-loader'
         'stylus-loader?sourceMap'
-        # 'prepend-string-loader?string[]=@require "~definitions.styl";'
-      ].join('!')
+        'prepend-string-loader?string[]=@require "~definitions.styl";'
+      ]
   }
 
   # Sass #
@@ -194,16 +181,12 @@ config.module.loaders = [
         'sass-loader?sourceMap'
         'import-glob-loader'
         ].join('!')
-      else ExtractText.extract [
+      else ExtractText.extract use: [
         'css-loader?sourceMap'
         'postcss-loader'
         'sass-loader?sourceMap'
         'import-glob-loader'
-      ].join('!')
-    options:
-      # Increase precision of math in SASS for Bootstrap
-      # https://github.com/twbs/bootstrap-sass#sass-number-precision
-      precision: 10
+      ]
   }
 
   # jQuery plugins #
@@ -234,13 +217,13 @@ config.module.loaders = [
               'style-loader'
               'css-loader?sourceMap&-autoprefixer'
               'stylus-loader?sourceMap'
-              # 'prepend-string-loader?string[]=@require "~definitions.styl";'
+              'prepend-string-loader?string[]=@require "~definitions.styl";'
             ].join('!')
-          else ExtractText.extract [
-              'css-loader?sourceMap&-autoprefixer'
-              'stylus-loader?sourceMap'
-              # 'prepend-string-loader?string[]=@require "~definitions.styl";'
-            ].join('!')
+          else ExtractText.extract use: [
+            'css-loader?sourceMap&-autoprefixer'
+            'stylus-loader?sourceMap'
+            'prepend-string-loader?string[]=@require "~definitions.styl";'
+          ]
   }
 ]
 
@@ -262,8 +245,8 @@ config.plugins = [
   # automatically, so don't need to watch for compile be done.
   new Notify alwaysNotify: !hmr
 
-  # Add some branding to all compiled JS files
-  new webpack.BannerPlugin "📝 Made for Unity3D 💾 #{moment().format('M.D.YY')} 👍"
+  # Add add a lil note to the js build
+  new webpack.BannerPlugin "📝 Made for Unity3D by Eric Howard 💾 #{moment().format('M.D.YY')} 👍"
 
   # Empty the build directory whenever webpack starts up, but doesn't run on
   # watch updates.  Has the added benefit of clearing out the dist directory
@@ -288,6 +271,8 @@ config.plugins = [
 
   # Inject the asset build sources into static pages
   new HtmlWebpackPlugin
+    template: 'index.ejs'
+    filename: '../index.html'
 
   # Make a nice webpack console while developing
   new DashboardPlugin
