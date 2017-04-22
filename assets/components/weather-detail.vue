@@ -9,7 +9,7 @@ Shows the weather information for a given location
 .component--weather-detail
 	template(v-if='location')
 		p {{ location.label }}
-		pre {{ location }}
+		pre {{ weatherData }}
 
 </template>
 
@@ -28,6 +28,8 @@ module.exports =
 
 	computed:
 		location: -> return @$store.getters.activeLocation
+		weatherData: -> return @location?.weather?[@units]
+		units: -> return @$store.getters.unitSystem
 
 </script>
 
