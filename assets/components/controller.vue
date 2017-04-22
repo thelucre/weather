@@ -5,7 +5,12 @@ Test Vue Component
 <template lang='jade'>
 
 .component--template
+
+	clock
+
 	unit-toggle(:units='units')
+
+
 
 	//-
 	add-location
@@ -29,6 +34,7 @@ export default {
 		locationItem: require './location-item'
 		addLocation: require './add-location'
 		unitToggle: require './unit-toggle'
+		clock: require './clock'
 
 	computed:
 		locations: -> return @$store.getters.allLocations
@@ -77,5 +83,13 @@ export default {
 
 <style lang='stylus'>
 .component--template
-	//
+	// Override specific component styles at the controller level
+	.component--clock
+		display inline-block
+		line-height 50px
+		vertical-align top
+		margin-right 1rem
+
+	.component--unit-toggle
+		display inline-block
 </style>

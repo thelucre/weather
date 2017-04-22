@@ -52,13 +52,15 @@ export default {
 
 	.unit
 		width 50%
-		height 45px
+		height 48px
 		float left
 		transition color 200ms ease
-		font-size rem(20px)
-		font-weight text-black
+		font-size rem(26px)
+		font-weight text-light
 		text-align center
-		line-height 45px
+		line-height 49px
+		padding-right 2px
+		color rgba(white,0.7)
 
 	&:before
 		content ''
