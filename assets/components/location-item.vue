@@ -13,6 +13,7 @@ load cached weather data
 		:to="{ name: 'location', params: { location: location.slug }}")
 		{{ location.label }}
 
+	button(v-if='location.userDefined' @click='remove') Remove
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -26,6 +27,9 @@ module.exports =
 		location:
 			type: Object
 			required: true
+
+	methods:
+		remove: -> @$store.dispatch 'removeLocation', @location.slug
 
 </script>
 
