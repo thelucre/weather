@@ -39,6 +39,16 @@ export default {
 			return if !nv
 			@fetch() unless ov == nv
 
+		# If a new location is set, route to that slug
+		'$store.state.location': (nv) ->
+			if nv.slug != @$route.params.slug
+				link =
+					name: 'location'
+					params:
+						slug: nv.slug
+				@$router.push link
+
+
 	beforeMount: ->
 		@fetch() if @slug
 
