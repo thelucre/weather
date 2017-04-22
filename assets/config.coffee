@@ -3,8 +3,15 @@ Global App Config
 ###
 module.exports =
   
-  # Key for reading/writing to local storage
-  cacheKey: 'weather-locations'
+  # Local storage settings
+  cache:
+    # Key for reading/writing to local storage
+    key: 'weather-locations'
+
+    # Refresh period for caching updates
+    # If weather data for a given unit system is younger than this time
+    # the cache will be used
+    period: 30*60 # 30 minutes
 
   # OpenWeather API settings
   api:

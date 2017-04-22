@@ -1,7 +1,8 @@
 config = require './config'
+utils = require './utils'
 
 # Private singleton cache object
-cache = JSON.parse(localStorage.getItem(config.cacheKey)) || {}
+cache = JSON.parse(localStorage.getItem(config.key)) || {}
 
 module.exports =
   ###
@@ -17,6 +18,11 @@ module.exports =
   addLocation: (location) ->
     cache[location.slug] = location
     @writeCache()
+
+  ###
+  Attempts to retrieve a location from the cache
+  ###
+  readLocation: (slug) -> return cache[slug]
 
   ###
   Removes a location from the cache
@@ -38,7 +44,14 @@ module.exports =
   param - location slug
   return bool
   ###
-  locationNeedsUpdate: (slug) -> return true
+  locationNeedsUpdate: (slug, units = 'imperial') ->
+    # If there's not weather data, skip the cache
+    latest = cache[slug].weather?[units]
+    return true if !latest
+
+    # If the weather data is old, skip the cache
+    now = utils.makeTimestamp()
+    return true if (now - latest.timestamp > config.cache.period)
 
   ###
   Load locations from cache
@@ -56,4 +69,13 @@ module.exports =
   ###
   Writes curernt cache to local storage
   ###
-  writeCache: -> localStorage.setItem config.cacheKey, JSON.stringify cache
+  writeCache: -> localStorage.setItem config.key, JSON.stringify cache
+
+  ###
+  Build out location object properties for caching
+  ###
+  timestampData: (location, data, units) ->
+    location.weather = {} if !location.weather
+    location.weather[units] = data
+    location.weather[units].timestamp = utils.makeTimestamp()
+    return location

@@ -47,38 +47,50 @@ actions =
   removeLocation: ({ commit }, slug) ->
     commit types.REMOVE_LOCATION, slug if cache.locationExists slug
 
-  addLocation: ({ commit, state }, city) ->
+  addLocation: ({ commit, state, dispatch }, city) ->
     location = utils.locationFromSlug city
 
     # If the city immediately appears to be invalid, show an error message
     return if location.slug == ''
 
-    # If the location already exists, just activate the weather detail
-    return console.log 'already exists' if cache.locationExists location.slug
+    # If the location already exists, set that location as active
+    if cache.locationExists location.slug
+      EventBus.$emit 'location-created'
+      return dispatch 'setActiveLocation', location.slug
 
     # Check if the OpenWeather API can find this location
     api.getWeather location.slug, state.units,
       (response) =>
-        # Commit the city
-        location.weather = response.data
+        # Commit the city, with a timestamp and units
+        location = cache.timestampData location, response.data, state.units
+
+        # Locations added here will always be user-defined
         location.userDefined = true
         commit types.SET_ACTIVE_LOCATION, location
         EventBus.$emit 'location-created'
+        
     , (error) =>
       console.log error
       console.log utils.parseErrorResponse error
 
   setActiveLocation: ({ commit, state }, slug, callback) ->
-    location = utils.locationFromSlug slug
-    api.getWeather location.slug, state.units,
-      (response) =>
-        location.weather = response.data
-        # Set current location
-        commit types.SET_ACTIVE_LOCATION, location
-    , (error) =>
-      console.log error
-      console.log utils.parseErrorResponse error
+    # Read location from cache or build a starter object for a new location
+    location = cache.readLocation(slug) || utils.locationFromSlug(slug)
 
+    # Request new data if the location cache is empty/outdated
+    if cache.locationNeedsUpdate location.slug, state.units
+      api.getWeather location.slug, state.units,
+        (response) =>
+          location = cache.timestampData location, response.data, state.units
+
+          # Set current location
+          commit types.SET_ACTIVE_LOCATION, location
+      , (error) =>
+        console.log error
+        console.log utils.parseErrorResponse error
+    else
+      # If the cache is up-to-date, use that data
+      commit types.SET_ACTIVE_LOCATION, location
 
 ###
 Private methods to change the app state
@@ -89,6 +101,7 @@ mutations =
     Vue.set state.locations, location.slug, location
 
   "#{types.REMOVE_LOCATION}": (state, slug) ->
+    state.location = null if state.location.slug == slug
     cache.removeLocation slug
     Vue.delete state.locations, slug
 

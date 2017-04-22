@@ -41,8 +41,8 @@ export default {
 		@fetch() if @slug
 
 		# This controller will be decoupled from the components
-		# Using a global even bus we can catch relevant events and
-		# Not require specific components to fire them
+		# Using a global event bus we can catch relevant events and
+		# not require specific components to fire them
 		EventBus.$on 'add-location', @tryToAddLocation
 		EventBus.$on 'remove-location', @removeLocation
 
