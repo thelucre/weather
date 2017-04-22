@@ -4,13 +4,6 @@ imported into the app's webpack.config.coffee where it can be hacked if changes
 are needed.
 ###
 
-# Autoprefixer config
-# https://github.com/ai/browserslist#queries
-autoprefixerBrowsers = [
-  'last 5 versions'
-  'ie >= 9'
-]
-
 # Inspect how webpack is being run
 minify = '-p' in process.argv # Compiling for production
 hmr = '--hot' in process.argv # "Hot module replacement" / using webpack-dev-server
@@ -201,8 +194,6 @@ config.module.loaders = [
     test: /\.vue$/
     loader: 'vue-loader'
     options:
-      # Use the same autoprefixer rules
-      autoprefixer: browsers: autoprefixerBrowsers
 
       loaders:
 

@@ -52,7 +52,7 @@
     "jade-loader": "^0",
     "json-loader": "^0",
     "node-sass": "^3.4.2",
-    "postcss-loader": "^0",
+    "postcss-loader": "^1.3.3",
     "prepend-string-loader": "rsboarder/prepend-string-loader",
     "sass-loader": "^3.1.2",
     "style-loader": "^0",

@@ -114,7 +114,7 @@ mutations =
     Vue.set state.locations, location.slug, location
 
   "#{types.REMOVE_LOCATION}": (state, slug) ->
-    state.location = null if state.location.slug == slug
+    state.location = null if state.location?.slug == slug
     cache.removeLocation slug
     Vue.delete state.locations, slug
 

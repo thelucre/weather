@@ -2,7 +2,7 @@ config = require '../config'
 utils = require '../utils'
 
 # Private singleton cache object
-cache = JSON.parse(localStorage.getItem(config.key)) || {}
+cache = JSON.parse(localStorage.getItem(config.cache.key)) || {}
 
 module.exports =
   ###
@@ -72,7 +72,7 @@ module.exports =
   ###
   Writes curernt cache to local storage
   ###
-  write: -> localStorage.setItem config.key, JSON.stringify cache
+  write: -> localStorage.setItem config.cache.key, JSON.stringify cache
 
   ###
   Build out location object properties for caching
