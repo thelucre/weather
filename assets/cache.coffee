@@ -17,7 +17,7 @@ module.exports =
   ###
   addLocation: (location) ->
     cache[location.slug] = location
-    @writeCache()
+    @write()
 
   ###
   Attempts to retrieve a location from the cache
@@ -30,7 +30,7 @@ module.exports =
   ###
   removeLocation: (slug) ->
     delete cache[slug]
-    @writeCache()
+    @write()
 
   ###
   Check if a location exists in the cache
@@ -45,6 +45,9 @@ module.exports =
   return bool
   ###
   locationNeedsUpdate: (slug, units = 'imperial') ->
+    # If there's no matching cache slug, we definitely need to update
+    return true if !@locationExists slug
+
     # If there's not weather data, skip the cache
     latest = cache[slug].weather?[units]
     return true if !latest
@@ -69,7 +72,7 @@ module.exports =
   ###
   Writes curernt cache to local storage
   ###
-  writeCache: -> localStorage.setItem config.key, JSON.stringify cache
+  write: -> localStorage.setItem config.key, JSON.stringify cache
 
   ###
   Build out location object properties for caching
