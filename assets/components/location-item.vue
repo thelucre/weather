@@ -19,7 +19,7 @@ load cached weather data
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-import EventBus from '../events'
+import EventBus from '../logic/events'
 
 export default {
 	props:

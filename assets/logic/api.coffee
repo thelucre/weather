@@ -1,5 +1,5 @@
 axios = require 'axios'
-config = require './config'
+config = require '../config'
 
 module.exports =
   ###

@@ -22,7 +22,7 @@ Test Vue Component
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-import EventBus from '../events'
+import EventBus from '../logic/events'
 
 export default {
 	components:
@@ -31,11 +31,13 @@ export default {
 
 	computed:
 		locations: -> return @$store.getters.allLocations
-		slug: -> return @$route.params.slug
+		slug: -> return @$route.params?.slug
 
 	watch:
 		# Watch the route path to check for a weather data update
-		'$route.params.slug': (nv, ov) -> @fetch() unless ov == nv
+		'$route.params.slug': (nv, ov) ->
+			return if !nv
+			@fetch() unless ov == nv
 
 	beforeMount: ->
 		@fetch() if @slug

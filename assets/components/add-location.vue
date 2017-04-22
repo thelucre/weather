@@ -12,7 +12,7 @@ Add Location Component
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-import EventBus from '../events'
+import EventBus from '../logic/events'
 
 export default {
 	data: -> location: ''

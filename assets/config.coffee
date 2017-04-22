@@ -2,7 +2,7 @@
 Global App Config
 ###
 module.exports =
-  
+
   # Local storage settings
   cache:
     # Key for reading/writing to local storage

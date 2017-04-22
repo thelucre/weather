@@ -12,12 +12,12 @@ routes = [
   {
     name: 'home'
     path: '/'
-    component: require './components/template'
+    component: require '../components/template'
     children: [
       {
         name: 'location'
         path: ':slug'
-        component: require './components/weather-detail'
+        component: require '../components/weather-detail'
         props: true
       }
     ]

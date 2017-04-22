@@ -5,4 +5,4 @@ module.exports =
   el: '#app'
 
   components:
-    controller: require './components/controller'
+    controller: require '../components/controller'

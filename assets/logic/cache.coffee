@@ -1,5 +1,5 @@
-config = require './config'
-utils = require './utils'
+config = require '../config'
+utils = require '../utils'
 
 # Private singleton cache object
 cache = JSON.parse(localStorage.getItem(config.key)) || {}

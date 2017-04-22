@@ -20,16 +20,16 @@ Vue.axios.defaults.baseURL = config.api.root
 
 # Router definition
 import VueRouter from 'vue-router'
-import router from './router'
+import router from './logic/router'
 Vue.use VueRouter
 
 # Controller logic
-import store from './store'
+import store from './logic/store'
 import { sync } from 'vuex-router-sync'
 sync store, router
 
 # Boot the app!
-app = require './app'
+app = require './logic/app'
 app.router = router
 app.store = store
 new Vue app

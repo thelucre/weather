@@ -4,9 +4,9 @@ Vue.use Vuex
 
 # Tools
 import EventBus from './events'
+config = require '../config'
+utils = require '../utils'
 cache = require './cache'
-config = require './config'
-utils = require './utils'
 api = require './api'
 types = require './types'
 
