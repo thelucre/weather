@@ -12,14 +12,14 @@ Test Vue Component
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-module.exports =
+export default {
 	mounted: -> console.log 'mounted!'
-
+}
 </script>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <style lang='stylus'>
 .component--template
-	// 
+	//
 </style>

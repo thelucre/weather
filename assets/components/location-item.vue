@@ -39,5 +39,15 @@ export default {
 
 <style lang='stylus'>
 .component--location-item
-	font-weight text-light
+	*
+		color dark-green
+		background white
+		display inline-block
+		float left
+		width 175px
+		padding rem(20px)
+		font-size rem(20px)
+		font-weight text-light
+		margin 0 1px 1px 0
+		white-space nowrap
 </style>

@@ -5,7 +5,7 @@ Test Vue Component
 <template lang='jade'>
 
 .component--template
-	p(@click="$store.dispatch('toggleUnits')") Units: {{ $store.state.units }}
+	unit-toggle(:units='units')
 
 	//-
 	add-location
@@ -28,10 +28,12 @@ export default {
 	components:
 		locationItem: require './location-item'
 		addLocation: require './add-location'
+		unitToggle: require './unit-toggle'
 
 	computed:
 		locations: -> return @$store.getters.allLocations
 		slug: -> return @$route.params?.slug
+		units: -> return @$store.getters.unitSystem
 
 	watch:
 		# Watch the route path to check for a weather data update
@@ -41,13 +43,13 @@ export default {
 
 		# If a new location is set, route to that slug
 		'$store.state.location': (nv) ->
+			return if nv == null
 			if nv.slug != @$route.params.slug
 				link =
 					name: 'location'
 					params:
 						slug: nv.slug
 				@$router.push link
-
 
 	beforeMount: ->
 		@fetch() if @slug
@@ -57,6 +59,7 @@ export default {
 		# not require specific components to fire them
 		EventBus.$on 'add-location', @tryToAddLocation
 		EventBus.$on 'remove-location', @removeLocation
+		EventBus.$on 'toggle-units', @toggleUnits
 
 	methods:
 		# Get weather data for the current location
@@ -65,6 +68,8 @@ export default {
 		tryToAddLocation: (location) -> @$store.dispatch 'addLocation', location
 
 		removeLocation: (slug) -> @$store.dispatch 'removeLocation', slug
+
+		toggleUnits: -> @$store.dispatch 'toggleUnits'
 }
 </script>
 
