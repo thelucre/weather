@@ -72,11 +72,11 @@ export default {
 
 	&.metric
 		.unit:first-of-type
-			color dark-green
+			color pink
 
 	&.imperial
 		.unit:last-of-type
-			color dark-green
+			color pink
 		&:before
 			left 50%
 

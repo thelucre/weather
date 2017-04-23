@@ -38,5 +38,5 @@ module.exports =
 
 <style lang='stylus'>
 .component--weather-detail
-	fill(white)
+	fill(off-white)
 </style>

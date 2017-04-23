@@ -5,11 +5,13 @@ Test Vue Component
 <template lang='jade'>
 
 .component--template
-	nav
-		a(href="#") Unity3D
-		router-link( :to="{ name: 'home' }") Home
 
 	header
+		nav
+			a(href='https://unity3d.com/' target='_blank')
+				img(src='/images/unity-logo.svg')
+			router-link( :to="{ name: 'home' }") Weather
+
 		clock
 		unit-toggle(:units='units')
 
@@ -18,8 +20,8 @@ Test Vue Component
 
 		add-location
 
-		h5 User Locations
 		template(v-if='userLocations.length')
+			h5 Your Locations
 			location-item(v-for='location in userLocations'
 				:key="location.slug"
 				:location='location')
@@ -39,6 +41,7 @@ export default {
 	components:
 		locationItem: require './location-item'
 		addLocation: require './add-location'
+		officeMenu: require './office-menu'
 		unitToggle: require './unit-toggle'
 		clock: require './clock'
 
@@ -98,15 +101,31 @@ export default {
 	max-width max-w
 	margin 0 auto
 
+	nav
+		float left
+
+		img
+			width 90px
+
+		a, img
+			line-height 1.8
+			vertical-align middle
+
+		a.router-link-active
+			font-size rem(28px)
+			font-weight text-ultra-light
+			margin-left rem(20px)
+
 	header
 		text-align right
 		padding-bottom rem(10px)
+		clearfix()
 
 	aside
 		width 200px
 		float left
-		margin-top rem(50px)
-		background lime
+		margin-top rem(20px)
+		background linear-gradient(180deg, lime -200%, green)
 
 		h5
 			margin 0

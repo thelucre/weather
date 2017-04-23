@@ -17,7 +17,7 @@ transition(name='fade' appear)
 			p copenhagen
 			p singapore
 
-		router-view
+		router-view(:key='$route.path')
 
 </template>
 
@@ -35,7 +35,7 @@ export default {
 .component--home
 	overflow hidden
 	position relative
-	background rgba(white,0.9)
+	background white
 	box-shadow 0px 0px 60px rgba(black, 0.2)
 
 	.banner

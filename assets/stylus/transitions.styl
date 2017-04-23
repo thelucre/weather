@@ -1,9 +1,14 @@
 .fade-enter-active, .fade-leave-active
-  transition: opacity .5s
+  transition opacity .5s
 
 .fade-enter, .fade-leave-to
-  opacity: 0
+  opacity 0
 
+.fade-fast-enter-active, .fade-fast-leave-active
+  transition opacity .3s
+
+.fade-fast-enter, .fade-fast-leave-to
+  opacity 0
 
 .swipe-right-enter-active, .swipe-right-leave-active
   transition opacity .45s ease, transform .45s ease

@@ -9,7 +9,7 @@ load cached weather data
 <template lang='jade'>
 
 .component--location-item
-	router-link(
+	router-link(@click.native='selected'
 		:to="{ name: 'location', params: { slug: location.slug }}"
 	) {{ location.label }}
 
@@ -31,6 +31,7 @@ export default {
 			required: true
 
 	methods:
+		selected: -> EventBus.$emit 'location-updated', @location
 		remove: -> EventBus.$emit 'remove-location', @location.slug
 }
 </script>
@@ -39,15 +40,27 @@ export default {
 
 <style lang='stylus'>
 .component--location-item
-	*
+	background transparent
+	display inline-block
+	float left
+	font-size rem(20px)
+	font-weight text-light
+	margin 0 1px 1px 0
+	white-space nowrap
+	transition transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease
+	box-shadow 0 0 0px rgba(black, 0.0)
+	display inline-block
+	width 100%
+
+	a
 		color dark-green
-		background white
-		display inline-block
-		float left
-		width 175px
-		padding rem(20px)
-		font-size rem(20px)
-		font-weight text-light
-		margin 0 1px 1px 0
-		white-space nowrap
+		display block
+		padding rem(10px) rem(20px)
+		line-height 1.5
+
+	&:hover
+		transform scale(1.05)
+		box-shadow 0 0 10px rgba(black, 0.15)
+		z-index 1
+		background rgba(pink,0.7)
 </style>
