@@ -1,8 +1,11 @@
 config = require '../config'
 utils = require '../utils'
 
+
+
 # Private singleton cache object
 cache = JSON.parse(localStorage.getItem(config.cache.key)) || {}
+settings = JSON.parse(localStorage.getItem(config.cache.settings)) || config.settings
 
 module.exports =
   ###
@@ -82,3 +85,15 @@ module.exports =
     location.weather[units] = data
     location.weather[units].timestamp = utils.makeTimestamp()
     return location
+
+  ###
+  Read a user setting from the cache
+  ###
+  readSetting: (key) -> return settings[key]
+
+  ###
+  Write a user setting to local storage
+  ###
+  updateSetting: (key, value) ->
+    settings[key] = value
+    localStorage.setItem config.cache.settings, JSON.stringify settings

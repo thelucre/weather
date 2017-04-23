@@ -8,7 +8,7 @@ Test Vue Component
 	.label(@mouseover='activate')
 		h5 All Office Locations
 
-	transition(name='fade-fast')
+	transition(name='scale-fade-fast')
 		.location-menu(v-if='active' @mouseleave='deactivate')
 			location-item(v-for='location in locations'
 				:key="location.slug"

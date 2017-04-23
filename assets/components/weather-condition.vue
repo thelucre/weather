@@ -65,7 +65,7 @@ export default {
 			# 762: volcanic ash
 			# 771: squalls
 			# 781: tornado
-			800: day: 'wi-day-cloudy-high', night: 'wi-night-alt-partly-cloudy'
+			800: day: 'wi-day-sunny', night: 'wi-night-clear'
 			801: day: 'wi-day-cloudy-high', night: 'wi-night-alt-partly-cloudy'
 			802: day: 'wi-day-cloudy-high', night: 'wi-night-alt-partly-cloudy'
 			803: day: 'wi-day-cloudy-high', night: 'wi-night-alt-partly-cloudy'

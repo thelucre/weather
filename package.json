@@ -1,9 +1,9 @@
 {
-  "name": "statik",
+  "name": "Weather System",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@github.com:thelucre/statik.git"
+    "url": "git@github.com:thelucre/weather.git"
   },
   "author": "",
   "license": "ISC",

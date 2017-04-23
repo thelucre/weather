@@ -3,6 +3,10 @@ Global App Config
 ###
 module.exports =
 
+  # Schema for user-defined preferences 
+  settings:
+    units: 'imperial'
+
   # Local storage settings
   cache:
     # Key for reading/writing to local storage
@@ -12,6 +16,9 @@ module.exports =
     # If weather data for a given unit system is younger than this time
     # the cache will be used
     period: 30*60 # 30 minutes
+
+    # Key for saving the userunits preference
+    settings: 'weather-settings'
 
   # OpenWeather API settings
   api:

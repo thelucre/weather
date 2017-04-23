@@ -21,7 +21,7 @@ state =
   location: null
 
   # Celcius (metric) or Degrees (imperial)
-  units: 'imperial'
+  units: cache.readSetting 'units'
 
   # Loading flag to manage user input
   loading: false
@@ -137,6 +137,7 @@ mutations =
     if state.units == 'metric'
       state.units = 'imperial'
     else state.units = 'metric'
+    cache.updateSetting 'units', state.units
 
   "#{types.SET_LOADING}": (state, isLoading) ->
     state.loading = isLoading

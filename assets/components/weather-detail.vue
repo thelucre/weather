@@ -40,6 +40,8 @@ transition(name='swipe-right' appear)
 
 <script lang='coffee'>
 config = require '../config'
+utils = require '../utils'
+
 module.exports =
 
 	components:
@@ -68,7 +70,7 @@ module.exports =
 			return @weatherData?.main?.humidity+'%'
 		pressure: ->
 			return null if !@weatherData?.main?.pressure
-			return (@weatherData?.main?.pressure/100).toFixed(2)
+			return utils.formatPressure @weatherData.main.pressure, @units
 		lowTemp: -> @weatherData?.main?.temp_min
 		highTemp: -> @weatherData?.main?.temp_max
 

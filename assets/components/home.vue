@@ -9,8 +9,8 @@ transition(name='fade' appear)
 		.banner
 
 		.copy
-			h1 How's the weather?
-			p Unity Technologies has a truly global presence. The team, spread across 24 offices around the world, is working non-stop to continue democratizing game development. But...how's the weather? Have a look at the conditions of all Unity office locations or add your own city in the side bar.
+			h1 Weather System
+			p Unity Technologies has a truly global presence. The team, spread across 24 offices around the world, is working non-stop to continue democratizing game development. But...how's the weather? Have a look at the conditions of all Unity office locations or add your own city in the menu.
 
 
 		.main-offices
@@ -36,7 +36,7 @@ transition(name='fade' appear)
 
 <script lang='coffee'>
 export default {
-	mounted: -> console.log 'mounted!'
+	# mounted: -> console.log 'mounted!'
 }
 </script>
 

@@ -15,6 +15,8 @@ Test Vue Component
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
+utils = require '../utils'
+
 export default {
   data: ->
     # Time object with hh:mm:ss and meridiem
@@ -23,7 +25,9 @@ export default {
     intervalID: null
 
   # Kick off the timer
-  mounted: -> @intervalID = setInterval @updateTime, 1000
+  mounted: ->
+    @updateTime()
+    @intervalID = setInterval @updateTime, 1000
 
   # Destroy the timer
   destroyed: -> clearInterval @intervalID if @intervalID
@@ -32,11 +36,7 @@ export default {
     # Build a timer object and parse the hours/minutes/seconds and meridiem
     updateTime: ->
       date = new Date();
-      seconds = date.getSeconds().toString().padStart(2, '0')
-      minutes = date.getMinutes().toString().padStart(2, '0')
-      @time =
-        time: "#{date.getHours()%12}:#{minutes}:#{seconds}"
-        meridiem: if date.getHours() > 12 then 'pm' else 'am'
+      @time = utils.formatTime date
 }
 </script>
 
@@ -47,7 +47,7 @@ export default {
   *
     color white
     margin 0
-		
+
   .meridiem
     text-transform uppercase
     font-size rem(30px)

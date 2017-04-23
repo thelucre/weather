@@ -25,8 +25,6 @@ export default {
 			type: String
 			required: true
 
-	mounted: -> console.log @units
-
 	methods:
 		toggleUnits: -> EventBus.$emit 'toggle-units'
 
@@ -43,6 +41,7 @@ export default {
 	clearfix()
 	cursor pointer
 	transition transform 200ms ease
+	user-select none
 
 	&:hover
 		transform scale(1.02)
