@@ -5,8 +5,15 @@ Temperature Component
 <template lang='jade'>
 
 .component--weather-temperature
-	p {{ high }}
-	p {{ low }}
+	.weather-temperature--gauge
+		.weather-temperature--label-low
+			p
+				{{ low }}&nbsp;
+				span.wi(:class='[unitIndicator]')
+		.weather-temperature--label-high
+			p
+				{{ high }}&nbsp;
+				span.wi(:class='[unitIndicator]')
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -21,6 +28,10 @@ export default {
 		low:
 			type: [String,Number]
 			required: true
+
+	computed:
+		unitIndicator: ->
+			return if @units == 'imperial' then 'wi-fahrenheit' else 'wi-celsius'
 }
 </script>
 
@@ -28,5 +39,34 @@ export default {
 
 <style lang='stylus'>
 .component--weather-temperature
+	gap = 80px
 	weather-module-padding()
+
+	@media(min-width tablet+1px)
+		margin rem(30px) 0
+	.weather-temperature--gauge
+		height rem(40px)
+		background linear-gradient(90deg, blue, pink)
+		width "calc(100% - %s)" % (gap*2)
+		margin 0 auto
+		position relative
+
+	.weather-temperature--label-low,
+	.weather-temperature--label-high
+		position absolute
+		text-align center
+
+		p
+			color dark-green
+			font-size rem(20px)
+			line-height rem(40px)
+
+		// .wi
+		// 	font-size rem(20px)
+
+	.weather-temperature--label-low
+		left -1*rem(gap)
+
+	.weather-temperature--label-high
+		right -1*rem(gap)
 </style>

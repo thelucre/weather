@@ -71,4 +71,5 @@ export default {
 		font-size rem(30px)
 		text-align middle
 		margin-bottom rem(20px)
+		transform translateX(-25%)
 </style>

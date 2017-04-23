@@ -21,7 +21,6 @@ Shows daytime hours
 
 <script lang='coffee'>
 utils = require '../../utils'
-moment = require 'moment'
 
 export default {
 	props:
@@ -86,7 +85,8 @@ export default {
 		width 100%
 
 	.weather-daylight--day
-		fill(yellow)
+		fill()
+		background linear-gradient(90deg,yellow,mix(pink,yellow, 30%),yellow)
 		width initial
 
 	.marker
