@@ -117,16 +117,20 @@ export default {
 
 <style lang='stylus'>
 .component--weather-condition
+	weather-module-padding()
 	text-align center
 
-	*
-		color green
 
 	.label
-		font-weight text-bold
+		color dark-green
+
 	// icon class
 	.wi
 		font-size rem(200px)
-		line-height 0.6
+		line-height 1
+		color green
+
+		&:before
+			vertical-align text-bottom
 
 </style>

@@ -47,7 +47,7 @@ module.exports =
     hours = 12 if hours == 0
     return {
       time: "#{hours}:#{minutes}:#{seconds}"
-      meridiem: if date.getHours() > 12 then 'pm' else 'am'
+      meridiem: if date.getHours() > 11 then 'pm' else 'am'
     }
 
   ###

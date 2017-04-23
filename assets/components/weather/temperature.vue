@@ -28,5 +28,5 @@ export default {
 
 <style lang='stylus'>
 .component--weather-temperature
-	//
+	weather-module-padding()
 </style>

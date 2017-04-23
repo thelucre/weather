@@ -7,8 +7,8 @@ Show windspeed and direction
 <template lang='jade'>
 
 .component--weather-wind
-	p {{ speed }}
-	p {{ direction }}
+	p(v-if='speed') {{ speed }}
+	p(v-if='direction') {{ direction }}
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -18,11 +18,9 @@ export default {
 	props:
 		speed:
 			type: [Number,String]
-			required: true
 
 		direction:
 			type: [Number,String]
-			required: true
 }
 </script>
 
@@ -30,5 +28,5 @@ export default {
 
 <style lang='stylus'>
 .component--weather-wind
-	//
+	weather-module-padding()
 </style>

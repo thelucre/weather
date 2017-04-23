@@ -1,24 +1,25 @@
 <!--
 Weather Stats Component
 
-Shows current temp, barometric pressure, & humidity 
+Shows current temp, barometric pressure, & humidity
 -->
 
 <template lang='jade'>
 
 .component--weather-stats
-	.temperature(v-if='temperature')
+	.weather-stats--column.temperature(v-if='temperature')
 		.wi.wi-thermometer
-		span {{ temperature }}
-		span.wi(:class='[unitIndicator]')
+		p
+			{{ temperature }}&nbsp;
+			span.wi(:class='[unitIndicator]')
 
-	.barometer(v-if='pressure')
+	.weather-stats--column.barometer(v-if='pressure')
 		.wi.wi-barometer
-		span {{ pressure }}
+		p {{ pressure }}
 
-	.humidity(v-if='humidity')
+	.weather-stats--column.humidity(v-if='humidity')
 		.wi.wi-humidity
-		span {{ humidity }}
+		p {{ humidity }}
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -52,7 +53,22 @@ export default {
 
 <style lang='stylus'>
 .component--weather-stats
+	weather-module-padding()
+	clearfix()
+
+	.weather-stats--column
+		width (100%/3)
+		float left
+		text-align center
+
+	p, p .wi
+		color dark-green
+		font-size rem(18px)
+
+	// Icons
 	.wi
-		font-size rem(20px)
+		color green
+		font-size rem(30px)
 		text-align middle
+		margin-bottom rem(20px)
 </style>

@@ -8,39 +8,39 @@ Shows the weather information for a given location
 
 transition(name='swipe-right' appear)
 	.component--weather-detail
-		.controls
+		.weather-detail--controls
 			back-button(:link='{ name: "home" }')
 
-		.content
+		.weather-detail--content
 			template(v-if='location && weatherData')
 				h1 {{ location.label }}
 
-				.column
+				.weather-detail--column
 					condition(v-if='conditionID && condition'
 						:conditionID='conditionID'
 						:condition='condition'
 						:daytime='daytime')
-
-					stats(v-if='temperature || humidity || pressure'
-						:temperature='temperature'
-						:humidity='humidity'
-						:pressure='pressure'
-						:units='units'
-					)
-
-				.column
-					wind(v-if='windSpeed || windDirection'
-						:speed='windSpeed'
-						:direction='windDirection')
 
 					daylight(v-if='sunrise && sunset && timestamp'
 						:sunrise='sunrise'
 						:sunset='sunset'
 						:time='timestamp')
 
+				.weather-detail--column
+					stats(v-if='temperature || humidity || pressure'
+						:temperature='temperature'
+						:humidity='humidity'
+						:pressure='pressure'
+						:units='units'
+					)
+					
 					temperature(v-if='highTemp && lowTemp'
 						:high='highTemp'
 						:low='lowTemp')
+
+					wind(v-if='windSpeed || windDirection'
+						:speed='windSpeed'
+						:direction='windDirection')
 
 </template>
 
@@ -118,17 +118,18 @@ module.exports =
 	fill(off-white)
 	text-align left
 
-	.controls
+	.weather-detail--controls
 		background rgba(gray,0.1)
 		overflow hidden
 		position relative
 
-	.content
+	.weather-detail--content
 		padding rem(0px) rem(40px)
 		clearfix()
 
-	.column
+	.weather-detail--column
 		width 50%
 		float left
+		max-width 400px
 
 </style>
