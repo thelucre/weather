@@ -49,3 +49,10 @@ module.exports =
       time: "#{hours}:#{minutes}:#{seconds}"
       meridiem: if date.getHours() > 12 then 'pm' else 'am'
     }
+
+  ###
+  Format speed for wind
+  ###
+  formatWindSpeed: (speed, units) ->
+    measure = if units == 'imperial' then 'mph' else 'm/s'
+    return speed+' '+measure

@@ -1,5 +1,7 @@
 <!--
-Test Vue Component
+Home Page Component
+
+Show intro content and three main offices 
 -->
 
 <template lang='jade'>

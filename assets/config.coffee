@@ -3,7 +3,7 @@ Global App Config
 ###
 module.exports =
 
-  # Schema for user-defined preferences 
+  # Schema for user-defined preferences
   settings:
     units: 'imperial'
 
@@ -15,7 +15,7 @@ module.exports =
     # Refresh period for caching updates
     # If weather data for a given unit system is younger than this time
     # the cache will be used
-    period: 30*60 # 30 minutes
+    period: 2*60 # 2 minutes
 
     # Key for saving the userunits preference
     settings: 'weather-settings'

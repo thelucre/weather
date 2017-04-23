@@ -6,7 +6,7 @@ Test Vue Component
 
 .component--weather-condition
 	p.wi(:class='[conditionIcon]')
-	h5 {{ condition }}
+	h5.label {{ condition }}
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -117,9 +117,16 @@ export default {
 
 <style lang='stylus'>
 .component--weather-condition
+	text-align center
 
-	// icons
+	*
+		color green
+
+	.label
+		font-weight text-bold
+	// icon class
 	.wi
 		font-size rem(200px)
-		color green
+		line-height 0.6
+
 </style>

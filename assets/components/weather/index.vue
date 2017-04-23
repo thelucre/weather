@@ -9,43 +9,56 @@ Shows the weather information for a given location
 transition(name='swipe-right' appear)
 	.component--weather-detail
 		.controls
-			.back-button
-				router-link(:to="{ name: 'home' }") Back
-				.bkgd
+			back-button(:link='{ name: "home" }')
 
 		.content
 			template(v-if='location && weatherData')
 				h1 {{ location.label }}
-				p {{ weatherData }}
-				weather-condition(v-if='conditionID && condition'
-					:conditionID='conditionID'
-					:condition='condition'
-					:daytime='daytime')
 
-				.temperature(v-if='temperature')
-					.wi.wi-thermometer
-					span {{ temperature }}
+				.column
+					condition(v-if='conditionID && condition'
+						:conditionID='conditionID'
+						:condition='condition'
+						:daytime='daytime')
 
-				.barometer(v-if='pressure')
-					.wi.wi-barometer
-					span {{ pressure }}
+					stats(v-if='temperature || humidity || pressure'
+						:temperature='temperature'
+						:humidity='humidity'
+						:pressure='pressure'
+						:units='units'
+					)
 
-				.humidity(v-if='humidity')
-					.wi.wi-humidity
-					span {{ humidity }}
+				.column
+					wind(v-if='windSpeed || windDirection'
+						:speed='windSpeed'
+						:direction='windDirection')
+
+					daylight(v-if='sunrise && sunset && timestamp'
+						:sunrise='sunrise'
+						:sunset='sunset'
+						:time='timestamp')
+
+					temperature(v-if='highTemp && lowTemp'
+						:high='highTemp'
+						:low='lowTemp')
 
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-config = require '../config'
-utils = require '../utils'
+config = require '../../config'
+utils = require '../../utils'
 
 module.exports =
 
 	components:
-		weatherCondition: require './weather-condition'
+		backButton: require '../back-button'
+		condition: require './condition'
+		stats: require './stats'
+		wind: require './wind'
+		daylight: require './daylight'
+		temperature: require './temperature'
 
 	props:
 		# City name
@@ -59,20 +72,33 @@ module.exports =
 		weatherData: -> return @location?.weather?[@units]
 		units: -> return @$store.getters.unitSystem
 
-		### Parsing weather data ###
+		###
+		Parsing weather data to pass to components
+		###
 		# OpenWeather API key for weather type
 		conditionID: -> return @weatherData?.weather?[0].id
 		condition: -> return @weatherData?.weather?[0].main
 
-		temperature: -> return @weatherData?.main?.temp
+		temperature: ->
+			return @weatherData?.main?.temp?.toFixed(1)
 		humidity: ->
 			return null if !@weatherData?.main?.humidity
 			return @weatherData?.main?.humidity+'%'
 		pressure: ->
 			return null if !@weatherData?.main?.pressure
 			return utils.formatPressure @weatherData.main.pressure, @units
-		lowTemp: -> @weatherData?.main?.temp_min
-		highTemp: -> @weatherData?.main?.temp_max
+
+		lowTemp: -> return @weatherData?.main?.temp_min?.toFixed(1)
+		highTemp: -> return @weatherData?.main?.temp_max?.toFixed(1)
+
+		windSpeed: ->
+			return null if !@weatherData?.wind?.speed
+			return utils.formatWindSpeed @weatherData.wind.speed, @units
+		windDirection: -> return @weatherData?.wind?.deg
+
+		sunrise: -> return @weatherData?.sys?.sunrise
+		sunset: -> return @weatherData?.sys?.sunset
+		timestamp: -> return @weatherData.timestamp
 
 		# Are we between sunset and sunrise (local time)?
 		daytime: ->
@@ -99,45 +125,10 @@ module.exports =
 
 	.content
 		padding rem(0px) rem(40px)
+		clearfix()
 
-	.back-button
-		transition transform .2s ease
-		transform-origin center left
-		display inline-block
-		a
-			position relative
-			padding rem(10px) rem(20px)
-			padding-right rem(40px)
-			display inline-block
-			z-index 1
-			text-transform uppercase
-			font-weight text-bold
-			font-size rem(14px)
-			transition letter-spacing .2s ease
+	.column
+		width 50%
+		float left
 
-		.bkgd
-			transform skew(-20deg)
-			content ''
-			width 120px
-			position absolute
-			background pink
-			top 0
-			left -20px
-			bottom 0
-			display block
-			padding rem(30px)
-			z-index 0
-			transition width .2s ease
-
-		&:hover
-			a
-				letter-spacing 2px
-			.bkgd
-				width 140px
-
-		&:active
-			a
-				letter-spacing 1px
-			.bkgd
-				width 130px
 </style>

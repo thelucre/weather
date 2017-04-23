@@ -17,7 +17,7 @@ routes = [
       {
         name: 'location'
         path: ':slug'
-        component: require '../components/weather-detail'
+        component: require '../components/weather/index'
         props: true
       }
     ]
