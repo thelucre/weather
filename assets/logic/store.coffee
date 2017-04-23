@@ -32,17 +32,21 @@ Public accessors to read the app state
 getters =
   allLocations: (state) -> return state.locations
 
+  officeLocations: (state) ->
+    return _.filter state.locations, userDefined: false
+
+  userLocations: (state) ->
+    return _.filter state.locations, userDefined: true
+
   activeLocation: (state) -> return state.location
 
   unitSystem: (state) -> return state.units
+
 
 ###
 Public methods that may attempt to change the app state
 ###
 actions =
-
-  getWeatherForLocation: (location) ->
-    console.log 'getting weather for location'
 
   toggleUnits: ({ commit, state, dispatch }) ->
     commit types.TOGGLE_UNITS
@@ -83,6 +87,9 @@ actions =
       console.log utils.parseErrorResponse error
       commit types.SET_LOADING, false
 
+  clearActiveLocation: ({ commit }) ->
+    commit types.CLEAR_ACTIVE_LOCATION
+
   setActiveLocation: ({ commit, state }, slug, callback) ->
     # Read location from cache or build a starter object for a new location
     location = cache.readLocation(slug) || utils.locationFromSlug(slug)
@@ -122,6 +129,9 @@ mutations =
     cache.addLocation _.clone location, deep: true
     Vue.set state.locations, location.slug, location
     state.location = location
+
+  "#{types.CLEAR_ACTIVE_LOCATION}": (state) ->
+    state.location = null
 
   "#{types.TOGGLE_UNITS}": (state, units) ->
     if state.units == 'metric'

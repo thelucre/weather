@@ -5,22 +5,28 @@ Test Vue Component
 <template lang='jade'>
 
 .component--template
+	nav
+		a(href="#") Unity3D
+		router-link( :to="{ name: 'home' }") Home
 
-	clock
+	header
+		clock
+		unit-toggle(:units='units')
 
-	unit-toggle(:units='units')
+	aside
+		office-menu(:locations='officeLocations')
 
+		add-location
 
+		h5 User Locations
+		template(v-if='userLocations.length')
+			location-item(v-for='location in userLocations'
+				:key="location.slug"
+				:location='location')
 
-	//-
-	add-location
-
-	//- Selectable Locations
-	template(v-for='location in locations')
-		location-item(:location='location')
-
-	//- Routed app view to host weather detail components
-	router-view
+	.content-pane
+		//- Routed app view to host weather detail components
+		router-view
 
 </template>
 
@@ -38,19 +44,24 @@ export default {
 
 	computed:
 		locations: -> return @$store.getters.allLocations
+		officeLocations: -> return @$store.getters.officeLocations
+		userLocations: -> return @$store.getters.userLocations
+
 		slug: -> return @$route.params?.slug
 		units: -> return @$store.getters.unitSystem
 
 	watch:
 		# Watch the route path to check for a weather data update
 		'$route.params.slug': (nv, ov) ->
-			return if !nv
+			return @$store.dispatch 'clearActiveLocation' if !nv
 			@fetch() unless ov == nv
 
 		# If a new location is set, route to that slug
+		# If there's no active location, go back home
 		'$store.state.location': (nv) ->
-			return if nv == null
-			if nv.slug != @$route.params.slug
+			if nv == null && @$route.params?.slug
+				@$router.push name: 'home'
+			else if nv?.slug != @$route.params?.slug
 				link =
 					name: 'location'
 					params:
@@ -58,6 +69,7 @@ export default {
 				@$router.push link
 
 	beforeMount: ->
+		# Fetch data from cache / API if we're on a child page
 		@fetch() if @slug
 
 		# This controller will be decoupled from the components
@@ -83,6 +95,26 @@ export default {
 
 <style lang='stylus'>
 .component--template
+	max-width max-w
+	margin 0 auto
+
+	header
+		text-align right
+		padding-bottom rem(10px)
+
+	aside
+		width 200px
+		float left
+		margin-top rem(50px)
+		background lime
+
+		h5
+			margin 0
+			color white
+
+	.content-pane
+		margin-left 200px
+
 	// Override specific component styles at the controller level
 	.component--clock
 		display inline-block

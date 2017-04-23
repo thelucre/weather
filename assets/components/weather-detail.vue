@@ -6,10 +6,11 @@ Shows the weather information for a given location
 
 <template lang='jade'>
 
-.component--weather-detail
-	template(v-if='location')
-		p {{ location.label }}
-		pre {{ weatherData }}
+transition(name='swipe-right' appear)
+	.component--weather-detail
+		template(v-if='location')
+			p {{ location.label }}
+			//- pre {{ weatherData }}
 
 </template>
 
@@ -37,5 +38,5 @@ module.exports =
 
 <style lang='stylus'>
 .component--weather-detail
-	//
+	fill(white)
 </style>

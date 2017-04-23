@@ -12,7 +12,7 @@ routes = [
   {
     name: 'home'
     path: '/'
-    component: require '../components/template'
+    component: require '../components/home'
     children: [
       {
         name: 'location'
