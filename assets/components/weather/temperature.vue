@@ -21,6 +21,10 @@ Temperature Component
 <script lang='coffee'>
 export default {
 	props:
+		units:
+			type: String
+			default: 'imperial'
+
 		high:
 			type: [String,Number]
 			required: true
@@ -39,7 +43,7 @@ export default {
 
 <style lang='stylus'>
 .component--weather-temperature
-	gap = 80px
+	gap = 70px
 	weather-module-padding()
 
 	@media(min-width tablet+1px)

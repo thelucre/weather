@@ -119,7 +119,7 @@ export default {
 .component--weather-condition
 	weather-module-padding()
 	text-align center
-
+	padding-top 0
 
 	.label
 		color dark-green
@@ -127,7 +127,7 @@ export default {
 	// icon class
 	.wi
 		font-size rem(200px)
-		line-height 1
+		line-height 0.9
 		color green
 
 		&:before

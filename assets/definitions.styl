@@ -35,5 +35,7 @@ text-black = 700
 @require '~bukwild-stylus-library';
 support-for-ie = false // Don't generate px values with rem function
 
-weather-module-padding() 
-	padding rem(20px)
+weather-module-padding()
+	padding rem(20px) rem(40px)
+	@media(max-width tablet-landscape)
+		padding rem(15px)

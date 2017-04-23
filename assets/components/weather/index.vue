@@ -33,10 +33,11 @@ transition(name='swipe-right' appear)
 						:pressure='pressure'
 						:units='units'
 					)
-					
+
 					temperature(v-if='highTemp && lowTemp'
 						:high='highTemp'
-						:low='lowTemp')
+						:low='lowTemp'
+						:units='units')
 
 					wind(v-if='windSpeed || windDirection'
 						:speed='windSpeed'
@@ -129,7 +130,7 @@ module.exports =
 
 	.weather-detail--column
 		width 50%
-		float left
-		max-width 400px
+		display inline-block
+		vertical-align middle
 
 </style>

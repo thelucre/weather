@@ -11,10 +11,11 @@ Shows daytime hours
 	.weather-daylight--ruler
 		.ruler.weather-daylight--night
 		.ruler.weather-daylight--day(:style='styleObject')
-		.marker.time.wi.wi-small-craft-advisory(:style='{left: timePercent}')
+		.marker.time.wi.wi-direction-down(:style='{left: timePercent}')
 		.marker.sunrise.wi.wi-sunrise(:style='{left: dayPercent}')
 		.marker.sunset.wi.wi-sunset(:style='{right: dayPercent}')
 
+	h5.label Daylight hours
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -72,21 +73,27 @@ export default {
 <style lang='stylus'>
 .component--weather-daylight
 	weather-module-padding()
+	max-width 350px
+	margin 0 auto
+
+	.label
+		color dark-green
+		text-align center
+		margin-top rem(60px)
 
 	.weather-daylight--ruler
 		position relative
 
 	.ruler
-		background slate
 		border-radius rem(20px)
 		height @border-radius
 
 	.weather-daylight--night
 		width 100%
+		background lighten(dark-green,10%)
 
 	.weather-daylight--day
-		fill()
-		background linear-gradient(90deg,yellow,mix(pink,yellow, 30%),yellow)
+		fill(rgba(yellow,0.95))
 		width initial
 
 	.marker
@@ -94,6 +101,10 @@ export default {
 		top rem(-30px)
 		color green
 		font-size rem(26px)
+
+	.time
+		font-size rem(36px)
+		color dark-green
 
 	.sunset, .sunrise
 		top rem(36px)
