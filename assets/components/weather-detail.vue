@@ -17,6 +17,22 @@ transition(name='swipe-right' appear)
 			template(v-if='location && weatherData')
 				h1 {{ location.label }}
 				p {{ weatherData }}
+				weather-condition(v-if='conditionID && condition'
+					:conditionID='conditionID'
+					:condition='condition'
+					:daytime='daytime')
+
+				.temperature(v-if='temperature')
+					.wi.wi-thermometer
+					span {{ temperature }}
+
+				.barometer(v-if='pressure')
+					.wi.wi-barometer
+					span {{ pressure }}
+
+				.humidity(v-if='humidity')
+					.wi.wi-humidity
+					span {{ humidity }}
 
 </template>
 
@@ -25,6 +41,9 @@ transition(name='swipe-right' appear)
 <script lang='coffee'>
 config = require '../config'
 module.exports =
+
+	components:
+		weatherCondition: require './weather-condition'
 
 	props:
 		# City name
@@ -37,6 +56,30 @@ module.exports =
 		location: -> return @$store.getters.activeLocation
 		weatherData: -> return @location?.weather?[@units]
 		units: -> return @$store.getters.unitSystem
+
+		### Parsing weather data ###
+		# OpenWeather API key for weather type
+		conditionID: -> return @weatherData?.weather?[0].id
+		condition: -> return @weatherData?.weather?[0].main
+
+		temperature: -> return @weatherData?.main?.temp
+		humidity: ->
+			return null if !@weatherData?.main?.humidity
+			return @weatherData?.main?.humidity+'%'
+		pressure: ->
+			return null if !@weatherData?.main?.pressure
+			return (@weatherData?.main?.pressure/100).toFixed(2)
+		lowTemp: -> @weatherData?.main?.temp_min
+		highTemp: -> @weatherData?.main?.temp_max
+
+		# Are we between sunset and sunrise (local time)?
+		daytime: ->
+			# Defaults to true
+			return true if !@weatherData?.sys
+			return (
+				@weatherData.timestamp >= @weatherData.sys.sunrise and
+				@weatherData.timestamp <= @weatherData.sys.sunset
+			)
 
 </script>
 

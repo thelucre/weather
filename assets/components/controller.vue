@@ -125,7 +125,7 @@ export default {
 		width 200px
 		float left
 		margin-top rem(20px)
-		background linear-gradient(180deg, lime -200%, green)
+		background linear-gradient(180deg, blue -100%, green)
 
 		h5
 			margin 0

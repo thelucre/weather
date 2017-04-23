@@ -63,7 +63,7 @@ export default {
 		z-index 2
 		padding rem(20px)
 		background linear-gradient(160deg, blue -500%, dark-green)
-		box-shadow 0 0 60px rgba(black, 0.1)
+		box-shadow 0 0 640px rgba(black, 0.5)
 
 		// hidden mouse target
 		&:before

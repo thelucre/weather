@@ -63,4 +63,7 @@ export default {
 		box-shadow 0 0 10px rgba(black, 0.15)
 		z-index 1
 		background rgba(pink,0.7)
+
+	&:active
+		transform scale(0.97)
 </style>
