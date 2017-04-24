@@ -72,6 +72,7 @@ export default {
 		background linear-gradient(160deg, blue -500%, dark-green)
 		box-shadow 0 0 640px rgba(black, 0.5)
 		clearfix()
+		gpu-cache()
 
 	// Desktop styles
 	@media(min-width tablet+1px)

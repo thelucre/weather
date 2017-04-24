@@ -76,6 +76,8 @@ export default {
 	@media(max-width tablet)
 		overflow visible
 
+		.banner
+			height rem(150px)
 		.main-offices
 			a.btn
 				display block
