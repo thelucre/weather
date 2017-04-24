@@ -22,7 +22,7 @@ module.exports =
 
   # OpenWeather API settings
   api:
-    root: 'http://api.openweathermap.org/data/2.5/'
+    root: '//api.openweathermap.org/data/2.5/'
     key: OPENWEATHER_KEY # pulled in from .env file at root during webpack build
 
   # Default Unity office locations
