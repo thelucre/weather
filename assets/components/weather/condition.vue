@@ -127,7 +127,7 @@ export default {
 	// icon class
 	.wi
 		font-size rem(200px)
-		line-height 0.9
+		line-height 1
 		color green
 
 		&:before

@@ -4,7 +4,7 @@ Test Vue Component
 
 <template lang='jade'>
 
-.component--template
+.component--controller
 
 	header
 		nav
@@ -20,7 +20,7 @@ Test Vue Component
 
 		add-location
 
-		template(v-if='userLocations.length')
+		.controller--user-locations(v-if='userLocations.length')
 			h5 Your Locations
 			location-item(v-for='location in userLocations'
 				:key="location.slug"
@@ -97,7 +97,7 @@ export default {
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <style lang='stylus'>
-.component--template
+.component--controller
 	max-width max-w
 	margin 0 auto
 
@@ -130,6 +130,18 @@ export default {
 		h5
 			margin 0
 			color white
+
+	.controller--user-locations
+		h5
+			padding rem(16px)
+
+		// Overriding component styles for the sidebar
+		.component--location-item
+			&:hover
+				background linear-gradient(45deg, lime, green)
+
+			a
+				color white
 
 	.content-pane
 		margin-left 200px

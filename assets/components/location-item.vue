@@ -13,7 +13,8 @@ load cached weather data
 		:to="{ name: 'location', params: { slug: location.slug }}"
 	) {{ location.label }}
 
-	button(v-if='location.userDefined' @click='remove') Remove
+	button(v-if='location.userDefined' @click='remove')
+		span &#10005;
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -51,6 +52,8 @@ export default {
 	box-shadow 0 0 0px rgba(black, 0.0)
 	display inline-block
 	width 100%
+	position relative
+	overflow hidden
 
 	a
 		color dark-green
@@ -64,6 +67,30 @@ export default {
 		z-index 1
 		background rgba(pink,0.7)
 
+		button
+			opacity 1
+
 	&:active
 		transform scale(0.97)
+
+	button
+		position absolute
+		right -40px
+		top 0
+		bottom 0
+		border 0
+		background pink
+		color white
+		height 50px
+		width @height
+		transition right .3s ease, opacity .3s ease
+		opacity 0
+		text-align center
+
+		span
+			display block
+
+		&:hover
+			right -2px
+
 </style>

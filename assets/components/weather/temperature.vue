@@ -44,12 +44,15 @@ export default {
 <style lang='stylus'>
 .component--weather-temperature
 	gap = 70px
+	height = 20px
 	weather-module-padding()
 
 	@media(min-width tablet+1px)
 		margin rem(30px) 0
+
 	.weather-temperature--gauge
-		height rem(40px)
+		border-radius height
+		height rem(height)
 		background linear-gradient(90deg, blue, pink)
 		width "calc(100% - %s)" % (gap*2)
 		margin 0 auto
@@ -63,7 +66,7 @@ export default {
 		p
 			color dark-green
 			font-size rem(20px)
-			line-height rem(40px)
+			line-height rem(height)
 
 		// .wi
 		// 	font-size rem(20px)

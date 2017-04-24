@@ -51,9 +51,10 @@ export default {
 	position relative
 
 	.label
-		padding 1rem
+		padding rem(26px) rem(16px)
 		background linear-gradient(160deg, blue -200%, dark-green)
 		transition transform 0.3s ease
+		cursor pointer
 
 	.location-menu
 		position absolute
@@ -74,6 +75,7 @@ export default {
 			top 0
 			height 120px
 			width 200px
+			cursor pointer
 
 	.component--location-item
 		width 33%

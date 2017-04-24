@@ -13,7 +13,7 @@ transition(name='swipe-right' appear)
 
 		.weather-detail--content
 			template(v-if='location && weatherData')
-				h1 {{ location.label }}
+				h1.title {{ location.label }}
 
 				.weather-detail--column
 					condition(v-if='conditionID && condition'
@@ -119,6 +119,9 @@ module.exports =
 	fill(off-white)
 	text-align left
 
+	.title
+		text-align center
+
 	.weather-detail--controls
 		background rgba(gray,0.1)
 		overflow hidden
@@ -132,5 +135,6 @@ module.exports =
 		width 50%
 		display inline-block
 		vertical-align middle
+		max-width 440px
 
 </style>

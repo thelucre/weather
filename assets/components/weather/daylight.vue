@@ -50,10 +50,15 @@ export default {
 
 		secondsInDay: -> return (60*60*24)
 
+		# Calculate the actual time of day (this is not exact due to timezones)
 		timePercent: ->
 			night = @secondsInDay - (@sunset - @sunrise)
 			beginning = @sunrise - night/2
 			diff = (@time-beginning)/@secondsInDay
+
+			# Some timestamps end up negative, so reverse the value
+			diff = 1 - Math.abs(diff) if diff < 0
+
 			diff = ((diff*100)%100).toFixed(5)+'%'
 			return diff
 
@@ -105,6 +110,7 @@ export default {
 	.time
 		font-size rem(36px)
 		color dark-green
+		transform translateX(-50%)
 
 	.sunset, .sunrise
 		top rem(36px)
