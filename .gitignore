@@ -10,8 +10,5 @@ npm-debug.log
 # Work files
 _docs
 
-# Builds ignored in master branch
-dist/*
-
 # Don't commit sensitive info
 .env
