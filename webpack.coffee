@@ -106,17 +106,6 @@ config.module.loaders = [
   # HTML #
   { test: /\.html$/, loader: 'html-loader' }
 
-  # Images #
-  # If files are smaller than the limit, becomes a data-url.  Otherwise,
-  # copies the files into dist and returns the hashed URL.  Also runs imagemin.
-  {
-    test: /\.(png|gif|jpe?g|svg)$/
-    loaders: [
-      'url?limit=10000&name=../img/[hash:8].[ext]'
-      'img?progressive=true'
-    ]
-  }
-
   # Fonts #
   # Not using the url-loader because serving multiple formats of a font would
   # mean inlining multiple formats that are unncessary for a given user.

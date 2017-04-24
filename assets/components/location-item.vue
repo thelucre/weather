@@ -90,6 +90,9 @@ export default {
 		transition right .3s ease, opacity .3s ease
 		opacity 0
 		text-align center
+		padding 0
+		display block
+		user-select none
 
 		span
 			display block

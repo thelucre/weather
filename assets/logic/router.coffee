@@ -24,4 +24,4 @@ routes = [
   }
 ]
 
-export default new VueRouter routes: routes, mode: 'history'
+export default new VueRouter routes: routes, mode: 'history', base: '/weather'

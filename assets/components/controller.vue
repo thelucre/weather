@@ -9,7 +9,7 @@ Test Vue Component
 	header
 		nav
 			a(href='https://unity3d.com/' target='_blank')
-				img(src='./images/unity-logo.svg')
+				img(:src='unityLogo')
 			router-link( :to="{ name: 'home' }") Weather
 
 		clock
@@ -42,6 +42,7 @@ export default {
 		units: -> return @$store.getters.unitSystem
 		slug: -> return @$route.params?.slug
 		error: -> return @$store.getters.errorMessage
+		unityLogo: -> return './images/unity-logo.svg'
 
 	watch:
 		# Watch the route path to check for a weather data update
