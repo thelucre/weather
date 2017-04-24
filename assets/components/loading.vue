@@ -32,6 +32,11 @@ transition(name='fade' appear)
 	right rem(16px)
 	top @right
 	z-index 2
+	transform-origin top right
+
+	@media(max-width tablet)
+		top rem(50px)
+		transform scale(0.7)
 
 	.loader--spinner,
 	.loader--spinner:before,
