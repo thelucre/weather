@@ -13,8 +13,7 @@ transition(name='swipe-right' appear)
 
 		.weather-detail--content
 			template(v-if='location && weatherData')
-				transition(name='fade')
-					h1.title {{ location.label }}
+				h1.title {{ location.label }}
 
 				.weather-detail--column
 
