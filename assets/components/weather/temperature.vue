@@ -11,7 +11,7 @@ Temperature Component
 				{{ low }}&nbsp;
 				span.wi(:class='[unitIndicator]')
 		.weather-temperature--label-high
-			p
+			p 
 				{{ high }}&nbsp;
 				span.wi(:class='[unitIndicator]')
 </template>

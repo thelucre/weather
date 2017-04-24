@@ -52,6 +52,9 @@ getters =
 
   errorMessage: (state) -> return state.error
 
+  isLoading: (state) -> return state.loading
+
+
 ###
 Public methods that may attempt to change the app state
 ###
@@ -116,6 +119,10 @@ actions =
   setActiveLocation: ({ commit, state, dispatch }, slug, callback) ->
     # Read location from cache or build a starter object for a new location
     location = cache.readLocation(slug) || utils.locationFromSlug(slug)
+
+    # Are we toggling units or changing the entire location?
+    if state.location?.slug != slug
+      dispatch 'clearActiveLocation'
 
     # Request new data if the location cache is empty/outdated
     if cache.locationNeedsUpdate location.slug, state.units
