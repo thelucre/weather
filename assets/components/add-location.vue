@@ -8,7 +8,7 @@ Add Location Component
 	h5 Add Your Location
 
 	form(@submit.prevent.stop='addLocation')
-		input(v-model='location' placeholder='enter a city')
+		input(v-model='location' placeholder='enter a city' ref='input')
 		button(type='submit'
 			:disabled='isDisabled') Add It
 </template>
@@ -30,7 +30,9 @@ export default {
 	methods:
 		addLocation: -> EventBus.$emit 'add-location', @location
 
-		clearInputs: -> @location = ''
+		clearInputs: ->
+			@location = ''
+			$(@$refs.input).blur()
 }
 </script>
 
