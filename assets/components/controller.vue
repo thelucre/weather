@@ -19,6 +19,9 @@ Test Vue Component
 	navigation
 
 	.content-pane
+		//- Global loading indicator
+		loading(v-if='loading')
+
 		//- Routed app view to host weather detail components
 		router-view
 
@@ -32,6 +35,7 @@ import EventBus from '../logic/events'
 
 export default {
 	components:
+		loading: require './loading'
 		unitToggle: require './unit-toggle'
 		clock: require './clock'
 		navigation: require './navigation'
@@ -42,6 +46,7 @@ export default {
 		units: -> return @$store.getters.unitSystem
 		slug: -> return @$route.params?.slug
 		error: -> return @$store.getters.errorMessage
+		loading: -> return @$store.getters.isLoading
 		unityLogo: -> return './images/unity-logo.svg'
 
 	watch:
@@ -114,6 +119,7 @@ export default {
 
 	.content-pane
 		margin-left 200px
+		position relative
 
 	// Override specific component styles at the controller level
 	.component--clock

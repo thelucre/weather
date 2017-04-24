@@ -13,20 +13,21 @@ transition(name='swipe-right' appear)
 
 		.weather-detail--content
 			template(v-if='location && weatherData')
-				h1.title {{ location.label }}
+				transition(name='fade')
+					h1.title {{ location.label }}
 
 				.weather-detail--column
 
 					transition(name='rotate-fade-1')
 						condition(v-if='conditionID && condition'
-							v-show='ready'
+							v-show='ready && !loading'
 							:conditionID='conditionID'
 							:condition='condition'
 							:daytime='daytime')
 
 					transition(name='rotate-fade-3')
 						daylight(v-if='sunrise && sunset && timestamp'
-							v-show='ready'
+							v-show='ready && !loading'
 							:sunrise='sunrise'
 							:sunset='sunset'
 							:time='timestamp')
@@ -34,7 +35,7 @@ transition(name='swipe-right' appear)
 				.weather-detail--column
 					transition(name='rotate-fade-2')
 						stats(v-if='(temperature || humidity || pressure)'
-							v-show='ready'
+							v-show='ready && !loading'
 							:temperature='temperature'
 							:humidity='humidity'
 							:pressure='pressure'
@@ -43,14 +44,14 @@ transition(name='swipe-right' appear)
 
 					transition(name='rotate-fade-4')
 						temperature(v-if='highTemp && lowTemp'
-							v-show='ready'
+							v-show='ready && !loading'
 							:high='highTemp'
 							:low='lowTemp'
 							:units='units')
 
 					transition(name='rotate-fade-5')
 						wind(v-if='(windSpeed || windDirection)'
-							v-show='ready'
+							v-show='ready && !loading'
 							:speed='windSpeed'
 							:direction='windDirection')
 
@@ -100,9 +101,13 @@ module.exports =
 			, 300
 
 	computed:
+		# Store Getters
 		location: -> return @$store.getters.activeLocation
 		weatherData: -> return @location?.weather?[@units]
 		units: -> return @$store.getters.unitSystem
+		loading: -> return @$store.getters.isLoading
+
+		label: -> return utils.title @slug
 
 		###
 		Parsing weather data to pass to components
