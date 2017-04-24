@@ -8,7 +8,7 @@ Show intro content and three main offices
 
 transition(name='fade' appear)
 	.component--home
-		.banner
+		.banner(style="background-image: url('./images/banner.gif');")
 
 		.copy
 			h1 Weather System
@@ -54,7 +54,6 @@ export default {
 
 	.banner
 		height rem(250px)
-		background-image url('./images/banner.gif')
 		background-size cover
 		background-position center 100%
 		background-repeat no-repeat
