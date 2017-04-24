@@ -85,7 +85,7 @@ config.resolve =
   alias:
     velocity: 'velocity-animate'
     underscore: 'lodash'
-    vue: 'vue/dist/vue'
+    vue: 'vue/dist/vue.common'
 
 # ##############################################################################
 # Loaders - File transmogrifying
@@ -259,6 +259,8 @@ config.plugins = [
 
   new webpack.DefinePlugin
     OPENWEATHER_KEY: JSON.stringify(process.env.OPENWEATHER_KEY || "{{YOUR_OPENWEATHER_KEY}}")
+    'process.env': NODE_ENV: '"production"'
+
 ]
 
 # Minify only (`webpack -p`) plugins.
