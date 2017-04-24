@@ -1,7 +1,7 @@
 <!--
 Home Page Component
 
-Show intro content and three main offices 
+Show intro content and three main offices
 -->
 
 <template lang='jade'>
@@ -46,11 +46,11 @@ export default {
 
 <style lang='stylus'>
 .component--home
-	overflow hidden
 	position relative
 	background white
 	box-shadow 0px 0px 60px rgba(black, 0.2)
 	text-align center
+	overflow hidden
 
 	.banner
 		height rem(250px)
@@ -63,6 +63,8 @@ export default {
 	.copy, .main-offices
 		max-width rem(600px)
 		margin 0 auto
+		padding-left rem(30px)
+		padding-right @padding-left
 
 	.main-offices
 		padding rem(20px)
@@ -70,6 +72,14 @@ export default {
 
 		a.btn
 			margin 0 rem(10px)
-			min-width 140px
+			min-width rem(140px)
+
+	@media(max-width tablet)
+		overflow visible
+
+		.main-offices
+			a.btn
+				display block
+				margin rem(8px)
 
 </style>

@@ -35,7 +35,7 @@ export default {
 
 <style lang='stylus'>
 .component--unit-toggle
-	width 100px
+	width rem(100px)
 	background rgba(white,0.3)
 	position relative
 	clearfix()
@@ -51,13 +51,13 @@ export default {
 
 	.unit
 		width 50%
-		height 48px
+		height rem(48px)
 		float left
 		transition color 200ms ease
 		font-size rem(26px)
 		font-weight text-light
 		text-align center
-		line-height 49px
+		line-height rem(49px)
 		padding-right 2px
 		color rgba(white,0.7)
 

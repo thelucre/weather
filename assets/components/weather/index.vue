@@ -119,6 +119,14 @@ module.exports =
 	fill(off-white)
 	text-align left
 
+	@media(max-width tablet)
+		height auto
+		bottom initial
+		min-height 100%
+
+	@media(max-width mobile-landscape)
+		padding-bottom rem(40px)
+
 	.title
 		text-align center
 
@@ -135,6 +143,11 @@ module.exports =
 		width 50%
 		display inline-block
 		vertical-align middle
-		max-width 440px
+		max-width rem(440px)
+
+		@media(max-width mobile-landscape)
+			width auto
+			display block
+			margin 0 auto
 
 </style>

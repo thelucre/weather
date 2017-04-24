@@ -32,7 +32,7 @@ export default {
 	a
 		position relative
 		padding rem(10px) rem(20px)
-		padding-right rem(40px)
+		padding-right rem(80px)
 		display inline-block
 		z-index 1
 		text-transform uppercase

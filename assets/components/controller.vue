@@ -14,17 +14,9 @@ Test Vue Component
 
 		clock
 		unit-toggle(:units='units')
+		navigation-toggle
 
-	aside
-		office-menu(:locations='officeLocations')
-
-		add-location
-
-		.controller--user-locations(v-if='userLocations.length')
-			h5 Your Locations
-			location-item(v-for='location in userLocations'
-				:key="location.slug"
-				:location='location')
+	navigation
 
 	.content-pane
 		//- Routed app view to host weather detail components
@@ -39,19 +31,14 @@ import EventBus from '../logic/events'
 
 export default {
 	components:
-		locationItem: require './location-item'
-		addLocation: require './add-location'
-		officeMenu: require './office-menu'
 		unitToggle: require './unit-toggle'
 		clock: require './clock'
+		navigation: require './navigation'
+		navigationToggle: require './navigation-toggle'
 
 	computed:
-		locations: -> return @$store.getters.allLocations
-		officeLocations: -> return @$store.getters.officeLocations
-		userLocations: -> return @$store.getters.userLocations
-
-		slug: -> return @$route.params?.slug
 		units: -> return @$store.getters.unitSystem
+		slug: -> return @$route.params?.slug
 
 	watch:
 		# Watch the route path to check for a weather data update
@@ -121,28 +108,6 @@ export default {
 		padding-bottom rem(10px)
 		clearfix()
 
-	aside
-		width 200px
-		float left
-		margin-top rem(20px)
-		background linear-gradient(180deg, blue -100%, green)
-
-		h5
-			margin 0
-			color white
-
-	.controller--user-locations
-		h5
-			padding rem(16px)
-
-		// Overriding component styles for the sidebar
-		.component--location-item
-			&:hover
-				background linear-gradient(45deg, lime, green)
-
-			a
-				color white
-
 	.content-pane
 		margin-left 200px
 
@@ -155,4 +120,16 @@ export default {
 
 	.component--unit-toggle
 		display inline-block
+
+	// Main page break
+	@media(max-width tablet)
+		nav img
+			width 70px
+
+		.content-pane
+			margin-left 0
+
+	@media(max-width mobile-landscape)
+		.component--clock
+			display none
 </style>

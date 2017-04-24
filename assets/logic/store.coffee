@@ -26,6 +26,9 @@ state =
   # Loading flag to manage user input
   loading: false
 
+  # Navigation state in mobile
+  navigationOpen: false
+
 ###
 Public accessors to read the app state
 ###
@@ -42,11 +45,18 @@ getters =
 
   unitSystem: (state) -> return state.units
 
+  navigationOpen: (state) -> return state.navigationOpen
+
 
 ###
 Public methods that may attempt to change the app state
 ###
 actions =
+  toggleNavigation: ({ commit }) ->
+    commit types.TOGGLE_NAVIGATION
+
+  closeNavigation: ({ commit }) ->
+    commit types.CLOSE_NAVIGATION
 
   toggleUnits: ({ commit, state, dispatch }) ->
     commit types.TOGGLE_UNITS
@@ -116,6 +126,12 @@ actions =
 Private methods to change the app state
 ###
 mutations =
+  "#{types.CLOSE_NAVIGATION}": (state) ->
+    state.navigationOpen = false
+
+  "#{types.TOGGLE_NAVIGATION}": (state) ->
+    state.navigationOpen = !state.navigationOpen
+
   "#{types.ADD_LOCATION}": (state, location) ->
     cache.addLocation location
     Vue.set state.locations, location.slug, location

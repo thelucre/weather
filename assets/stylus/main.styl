@@ -21,9 +21,13 @@ body
 	font-family 'Roboto', 'Helvetica', 'Arial', sans-serif
 	background dark-green
 	color gray
-	padding 2rem
 	background linear-gradient(150deg, slate 0%, dark-green)
 
+	padding rem(32px)
+
+	@media(max-width tablet)
+		padding rem(16px)
+		margin-bottom rem(60px)
 p
 	margin 0
 	font-size rem(18px)

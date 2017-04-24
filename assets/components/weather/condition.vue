@@ -133,4 +133,7 @@ export default {
 		&:before
 			vertical-align text-bottom
 
+			@media(max-width tablet)
+				vertical-align initial
+
 </style>

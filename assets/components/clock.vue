@@ -51,4 +51,5 @@ export default {
   .meridiem
     text-transform uppercase
     font-size rem(30px)
+
 </style>

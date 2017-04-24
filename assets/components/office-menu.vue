@@ -9,7 +9,10 @@ Test Vue Component
 		h5 All Office Locations
 
 	transition(name='scale-fade-fast')
-		.location-menu(v-if='active' @mouseleave='deactivate')
+
+		.location-menu(v-if='active || navigationOpen'
+			@mouseleave='deactivate')
+
 			location-item(v-for='location in locations'
 				:key="location.slug"
 				:location='location')
@@ -33,14 +36,18 @@ export default {
 	components:
 		locationItem: require './location-item'
 
-	mounted: -> EventBus.$on 'location-updated', @deactivate
+	computed:
+		navigationOpen: -> @$store.getters.navigationOpen
+
+	mounted: ->
+		EventBus.$on 'location-updated', @deactivate
 
 	methods:
-		activate: -> @active = true
+		activate: -> @active = true if !@navigationOpen
 
-		deactivate: -> @active = false
+		deactivate: -> @active = false if !@navigationOpen
 
-		toggle: -> @active = !@active
+		toggle: -> @active = !@active if !@navigationOpen
 }
 </script>
 
@@ -56,35 +63,48 @@ export default {
 		transition transform 0.3s ease
 		cursor pointer
 
-	.location-menu
-		position absolute
-		width 800px
-		left 100%
-		top rem(-20px)
-		z-index 2
-		padding rem(20px)
-		background linear-gradient(160deg, blue -500%, dark-green)
-		box-shadow 0 0 640px rgba(black, 0.5)
-
-		// hidden mouse target
-		&:before
-			content ''
-			display block
-			position absolute
-			left -200px
-			top 0
-			height 120px
-			width 200px
-			cursor pointer
-
 	.component--location-item
-		width 33%
-
 		a
 			color white
 
-	// When open
-	&.active
-		.label
-			transform scale(1.02)
+	.location-menu
+		padding rem(20px)
+		background linear-gradient(160deg, blue -500%, dark-green)
+		box-shadow 0 0 640px rgba(black, 0.5)
+		clearfix()
+
+	// Desktop styles
+	@media(min-width tablet+1px)
+		.component--location-item
+			width 33%
+
+		.location-menu
+			position absolute
+			width rem(800px)
+			left 100%
+			top rem(-20px)
+			z-index 2
+
+			@media(max-width tablet-landscape)
+				width rem(650px)
+
+			// hidden mouse target
+			&:before
+				content ''
+				display block
+				position absolute
+				left -200px
+				top 0
+				height 120px
+				width 200px
+				cursor pointer
+
+		// When open
+		&.active
+			.label
+				transform scale(1.02)
+
+	@media(max-width tablet)
+		.location-menu
+			padding rem(20px) 0
 </style>

@@ -47,42 +47,43 @@ export default {
 	font-size rem(20px)
 	font-weight text-light
 	margin 0 1px 1px 0
-	white-space nowrap
 	transition transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease
 	box-shadow 0 0 0px rgba(black, 0.0)
 	display inline-block
 	width 100%
 	position relative
 	overflow hidden
+	cursor pointer
 
 	a
 		color dark-green
 		display block
 		padding rem(10px) rem(20px)
-		line-height 1.5
+		line-height 1.2
 
-	&:hover
-		transform scale(1.05)
-		box-shadow 0 0 10px rgba(black, 0.15)
-		z-index 1
-		background rgba(pink,0.7)
+	@media(min-width tablet+1px)
+		&:hover
+			transform scale(1.05)
+			box-shadow 0 0 10px rgba(black, 0.15)
+			z-index 1
+			background rgba(pink,0.7)
 
-		button
-			opacity 1
+			button
+				opacity 1
 
-	&:active
-		transform scale(0.97)
+		&:active
+			transform scale(0.97)
 
 	button
 		position absolute
-		right -40px
+		right rem(-40px)
 		top 0
 		bottom 0
 		border 0
 		background pink
 		color white
-		height 50px
-		width @height
+		height 100%
+		width rem(50px)
 		transition right .3s ease, opacity .3s ease
 		opacity 0
 		text-align center
@@ -91,6 +92,23 @@ export default {
 			display block
 
 		&:hover
-			right -2px
+			right rem(-2px)
 
+	@media(max-width tablet)
+		width 48%
+		float left
+
+		button
+			right rem(-20px)
+			opacity 1
+			border-radius 50%
+			width rem(32px)
+			height @width
+			line-height rem(28px)
+			transform-origin center center
+			transform translate(-50%, -50%) scale(0.7)
+			top 50%
+
+			&:hover
+				right rem(-20px)
 </style>
