@@ -16,32 +16,43 @@ transition(name='swipe-right' appear)
 				h1.title {{ location.label }}
 
 				.weather-detail--column
-					condition(v-if='conditionID && condition'
-						:conditionID='conditionID'
-						:condition='condition'
-						:daytime='daytime')
 
-					daylight(v-if='sunrise && sunset && timestamp'
-						:sunrise='sunrise'
-						:sunset='sunset'
-						:time='timestamp')
+					transition(name='rotate-fade-1')
+						condition(v-if='conditionID && condition'
+							v-show='ready'
+							:conditionID='conditionID'
+							:condition='condition'
+							:daytime='daytime')
+
+					transition(name='rotate-fade-3')
+						daylight(v-if='sunrise && sunset && timestamp'
+							v-show='ready'
+							:sunrise='sunrise'
+							:sunset='sunset'
+							:time='timestamp')
 
 				.weather-detail--column
-					stats(v-if='temperature || humidity || pressure'
-						:temperature='temperature'
-						:humidity='humidity'
-						:pressure='pressure'
-						:units='units'
-					)
+					transition(name='rotate-fade-2')
+						stats(v-if='(temperature || humidity || pressure)'
+							v-show='ready'
+							:temperature='temperature'
+							:humidity='humidity'
+							:pressure='pressure'
+							:units='units'
+						)
 
-					temperature(v-if='highTemp && lowTemp'
-						:high='highTemp'
-						:low='lowTemp'
-						:units='units')
+					transition(name='rotate-fade-4')
+						temperature(v-if='highTemp && lowTemp'
+							v-show='ready'
+							:high='highTemp'
+							:low='lowTemp'
+							:units='units')
 
-					wind(v-if='windSpeed || windDirection'
-						:speed='windSpeed'
-						:direction='windDirection')
+					transition(name='rotate-fade-5')
+						wind(v-if='(windSpeed || windDirection)'
+							v-show='ready'
+							:speed='windSpeed'
+							:direction='windDirection')
 
 </template>
 
@@ -67,6 +78,26 @@ module.exports =
 			type: String
 			required: true
 			default: null
+
+	watch:
+		units: (nv,ov) ->
+			@prepareBuildin() if ov != nv
+
+	data: ->
+		# Flag to trigger build in animations
+		ready: false
+		timeoutID: null
+
+	mounted: ->
+		@prepareBuildin()
+
+	methods:
+		prepareBuildin: ->
+			@ready = false
+			clearTimeout @timeoutID
+			@timeoutID = setTimeout =>
+				@ready = true
+			, 300
 
 	computed:
 		location: -> return @$store.getters.activeLocation

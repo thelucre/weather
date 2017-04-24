@@ -32,3 +32,15 @@
 
 .swipe-up-enter, .swipe-up-leave-to
   transform translateY(100%)
+
+for num in (1..5)
+  baseTime = .3s
+  delay = num * .1s
+  .rotate-fade-{num}-enter-active, .rotate-fade-{num}-leave-active
+    transition transform baseTime delay ease, opacity baseTime delay ease
+    transform translateY(0)
+  .rotate-fade-{num}-leave-active
+    transition transform baseTime 0s ease, opacity baseTime 0s ease
+  .rotate-fade-{num}-enter, .rotate-fade-{num}-leave-to
+    transform translateY(2rem)
+    opacity 0

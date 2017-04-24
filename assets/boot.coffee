@@ -23,6 +23,10 @@ import VueRouter from 'vue-router'
 import router from './logic/router'
 Vue.use VueRouter
 
+router.beforeEach (to, from, next) ->
+  window.scrollTo(0, 0)
+  next()
+
 # Controller logic
 import store from './logic/store'
 import { sync } from 'vuex-router-sync'

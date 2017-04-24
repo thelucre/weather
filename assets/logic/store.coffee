@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 Vue.use Vuex
 
 # Tools
+import router from './router'
 import EventBus from './events'
 config = require '../config'
 utils = require '../utils'
@@ -112,7 +113,7 @@ actions =
   clearActiveLocation: ({ commit }) ->
     commit types.CLEAR_ACTIVE_LOCATION
 
-  setActiveLocation: ({ commit, state }, slug, callback) ->
+  setActiveLocation: ({ commit, state, dispatch }, slug, callback) ->
     # Read location from cache or build a starter object for a new location
     location = cache.readLocation(slug) || utils.locationFromSlug(slug)
 
@@ -127,8 +128,9 @@ actions =
           commit types.SET_ACTIVE_LOCATION, location
           commit types.SET_LOADING, false
       , (error) =>
-        console.log error
-        console.log utils.parseErrorResponse error
+        code = utils.parseErrorResponse error
+        dispatch 'setError', code
+        router.push name: 'home'
         commit types.SET_LOADING, false
     else
       # If the cache is up-to-date, use that data
