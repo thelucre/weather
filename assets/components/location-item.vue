@@ -61,6 +61,9 @@ export default {
 		padding rem(10px) rem(20px)
 		line-height 1.2
 
+	&:hover
+		background rgba(pink,0.7)
+
 	@media(min-width tablet+1px)
 		&:hover
 			transform scale(1.05)

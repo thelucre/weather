@@ -22,6 +22,7 @@ Test Vue Component
 		//- Routed app view to host weather detail components
 		router-view
 
+	error-panel(v-if='error')
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -35,10 +36,12 @@ export default {
 		clock: require './clock'
 		navigation: require './navigation'
 		navigationToggle: require './navigation-toggle'
+		errorPanel: require './error-panel'
 
 	computed:
 		units: -> return @$store.getters.unitSystem
 		slug: -> return @$route.params?.slug
+		error: -> return @$store.getters.errorMessage
 
 	watch:
 		# Watch the route path to check for a weather data update

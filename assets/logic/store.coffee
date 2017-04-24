@@ -29,6 +29,8 @@ state =
   # Navigation state in mobile
   navigationOpen: false
 
+  error: null
+
 ###
 Public accessors to read the app state
 ###
@@ -47,11 +49,21 @@ getters =
 
   navigationOpen: (state) -> return state.navigationOpen
 
+  errorMessage: (state) -> return state.error
 
 ###
 Public methods that may attempt to change the app state
 ###
 actions =
+  setError: ({ commit }, code) ->
+    msg = 'Having some trouble accessing the API. Please try again later.'
+    if code == 404
+      msg = 'The name entered didn\'t match any cities. Try another?'
+    commit types.SET_ERROR, msg
+
+  clearError: ({ commit }) ->
+    commit types.CLEAR_ERROR
+
   toggleNavigation: ({ commit }) ->
     commit types.TOGGLE_NAVIGATION
 
@@ -93,8 +105,8 @@ actions =
         commit types.SET_LOADING, false
 
     , (error) =>
-      console.log error
-      console.log utils.parseErrorResponse error
+      code = utils.parseErrorResponse error
+      dispatch 'setError', code
       commit types.SET_LOADING, false
 
   clearActiveLocation: ({ commit }) ->
@@ -126,6 +138,12 @@ actions =
 Private methods to change the app state
 ###
 mutations =
+  "#{types.SET_ERROR}": (state, error) ->
+    state.error = error
+
+  "#{types.CLEAR_ERROR}": (state) ->
+    state.error = null
+
   "#{types.CLOSE_NAVIGATION}": (state) ->
     state.navigationOpen = false
 

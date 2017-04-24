@@ -25,3 +25,10 @@
 .scale-fade-fast-enter, .scale-fade-fast-leave-to
   opacity 0
   transform scale(0.95)
+
+.swipe-up-enter-active, .swipe-up-leave-active
+  transition transform .3s ease
+  transform translateY(0)
+
+.swipe-up-enter, .swipe-up-leave-to
+  transform translateY(100%)
