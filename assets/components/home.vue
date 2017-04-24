@@ -54,7 +54,7 @@ export default {
 
 	.banner
 		height rem(250px)
-		background-image url('/images/banner.gif')
+		background-image url('./images/banner.gif')
 		background-size cover
 		background-position center 100%
 		background-repeat no-repeat

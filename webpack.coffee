@@ -112,7 +112,7 @@ config.module.loaders = [
   {
     test: /\.(png|gif|jpe?g|svg)$/
     loaders: [
-      'url?limit=10000&name=./img/[hash:8].[ext]'
+      'url?limit=10000&name=../img/[hash:8].[ext]'
       'img?progressive=true'
     ]
   }

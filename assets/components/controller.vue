@@ -9,7 +9,7 @@ Test Vue Component
 	header
 		nav
 			a(href='https://unity3d.com/' target='_blank')
-				img(src='/images/unity-logo.svg')
+				img(src='./images/unity-logo.svg')
 			router-link( :to="{ name: 'home' }") Weather
 
 		clock
