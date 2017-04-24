@@ -50,7 +50,7 @@ config =
   # JS doesn't need this as it gets unique URLs via PHP.
   output:
     path:          "#{process.cwd()}/dist"
-    publicPath:    if hmr then 'http://localhost:'+port+'/dist/' else '/dist/'
+    publicPath:    if hmr then 'http://localhost:'+port+'/dist/' else './dist/'
     filename:      '[name].js'
     chunkFilename: '[id].js'
 
@@ -112,7 +112,7 @@ config.module.loaders = [
   {
     test: /\.(png|gif|jpe?g|svg)$/
     loaders: [
-      'url?limit=10000&name=img/[hash:8].[ext]'
+      'url?limit=10000&name=./img/[hash:8].[ext]'
       'img?progressive=true'
     ]
   }
@@ -122,7 +122,7 @@ config.module.loaders = [
   # mean inlining multiple formats that are unncessary for a given user.
   {
     test: /\.(eot|ttf|woff|woff2)$/
-    loader: 'file-loader?name=fonts/[hash:8].[ext]'
+    loader: 'file-loader?name=../fonts/[hash:8].[ext]'
   }
 
   # JSON #
